@@ -4,6 +4,7 @@ import PySimpleGUI as sg
 from tree_folder import Folder as tf
 import time
 import shutil as sht
+import pandas as pd
 import numpy as np
 
 #setup the layout of the program
@@ -27,8 +28,8 @@ o_map = [
     ]
 #optional inputs frame
 frame_l = [[sg.Checkbox('Subfolder Size Analysis', default = False, key = '-SUB-')],
-    [sg.Checkbox('Storage Use By File Type', default = False)],
-    [sg.Checkbox('Duplicate Analysis', default = False)]] 
+    [sg.Checkbox('Storage Use By File Type', default = False, key = '-BRK-')],
+    [sg.Checkbox('Duplicate Analysis', default = False, key = '-DUP-')]] 
 
 opt_frame = [sg.Frame(layout = frame_l, title = 'Optional Analyses') ]
 
@@ -91,6 +92,44 @@ while True:
                 fldr_sz_info.to_csv(f'{output_folder}/subfolder_size.csv', index = True)
 
                 print(f'subfolder size analysis written to {output_folder}')
+
+            if values['-BRK-'] == True:
+                fldr2 = file_info_df[['sub_folder', 'extension', 'size']].copy()
+
+                fldr_info2 = fldr2.groupby(['sub_folder', 'extension']).agg({'size':['count', 'sum']})
+
+                fldr_info2.columns = ['file_count', 'total_size_mb']
+
+                fldr_info2.to_csv(f'{output_folder}/subfolder_ext.csv', index = True)
+
+                print(f'File Extension Breakdown written to {output_folder}')
+
+            if values['-DUP-'] == True:
+                fldr3 = file_info_df[['file_name', 'size', 'created']].copy()
+
+                fldr_info3 = fldr3.groupby(['file_name', 'size']).agg({'created':['count']})
+
+                #rename "created"
+                fldr_info3.columns = ['copies']
+
+                #filter dataframe
+                fldr_info3 = fldr_info3[fldr_info3['copies'] > 1]
+
+                if len(fldr_info3) > 0:
+
+                    #merge in paths from the original data
+                    paths_df = file_info_df[['file_name', 'full_file_path']].copy()
+
+                    #do the merge step
+                    merge_df = pd.merge(fldr_info3, paths_df, on = 'file_name', how = 'right')
+
+                    merge_df.to_csv(f'{output_folder}/suspected_duplicates.csv', index = True)
+
+                    print(f'duplicates analysis written to {output_folder}/suspected_duplicates.csv')
+
+
+                else: 
+                    print('No suspected duplicates found')
         
         except:
             print('Error: make sure inputs are set and try again')
