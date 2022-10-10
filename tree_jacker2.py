@@ -33,10 +33,19 @@ frame_l = [[sg.Checkbox('Subfolder Size Analysis', default = False, key = '-SUB-
 
 opt_frame = [sg.Frame(layout = frame_l, title = 'Optional Analyses') ]
 
+#optional unpack frame
+unpack_l = [[sg.Text('Copy Files in Analysis Folder To'), 
+    sg.In(size = (25, 1), enable_events = True, key = '-UFOLDER'),
+    sg.FolderBrowse()], 
+    [sg.Button('Set Unpack Folder')],
+    [sg.Checkbox('Enable (copy all files in analysis folder to specified folder)', default=False, key = '-UPK-')]]
+
+unpack_frame = [sg.Frame(layout = unpack_l, title = 'Optional Unpack Operation')]
+
 r_map = [[sg.Button('RUN')]]
 
 #full layout
-f_layout = [[i_map, o_map, opt_frame, r_map]]
+f_layout = [[i_map, o_map, opt_frame, unpack_frame, r_map]]
 
 #create window
 window = sg.Window('Tree Jacker', f_layout, resizable=True)
