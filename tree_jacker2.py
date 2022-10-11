@@ -35,7 +35,7 @@ opt_frame = [sg.Frame(layout = frame_l, title = 'Optional Analyses') ]
 
 #optional unpack frame
 unpack_l = [[sg.Text('Copy Files in Analysis Folder To'), 
-    sg.In(size = (25, 1), enable_events = True, key = '-UFOLDER'),
+    sg.In(size = (25, 1), enable_events = True, key = '-UFOLDER-'),
     sg.FolderBrowse()], 
     [sg.Button('Set Unpack Folder')],
     [sg.Checkbox('Enable (copy all files in analysis folder to specified folder)', default=False, key = '-UPK-')]]
@@ -67,9 +67,15 @@ while True:
         ofolder = values['-OFOLDER-']
 
     if event == 'Set Output Folder':
-        print(f'Target folder set as {folder}')
+        print(f'Output folder set as {ofolder}')
         output_folder = ofolder
 
+    if event == '-UFOLDER-':
+        ufolder = values['-UFOLDER-']
+
+    if event == 'Set Unpack Folder':
+        print(f'Unpack Folder set as {ufolder}')
+        user_dest = ufolder
 
     if event == 'RUN':
         #run a tree_jack analysis
@@ -135,15 +141,18 @@ while True:
                     merge_df.to_csv(f'{output_folder}/suspected_duplicates.csv', index = True)
 
                     print(f'duplicates analysis written to {output_folder}/suspected_duplicates.csv')
-
-
+       
                 else: 
                     print('No suspected duplicates found')
+
+            if values['-UPK-'] == True:
+                
+                fold.move_files(fold.file_names, fold.file_path_list, user_dest)
         
         except:
             print('Error: make sure inputs are set and try again')
 
-
+        
         #kill the program if the user hits the close box or 
     if event== sg.WIN_CLOSED:
         #this command breaks the loop
