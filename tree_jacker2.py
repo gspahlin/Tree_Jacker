@@ -30,6 +30,9 @@ floor_map = [[sg.Text('Ignore Files Smaller Than'), sg.In(size= (5, 1), enable_e
 
     [sg.Button('Set Floor')]]
 
+#floor set to zero by default
+floor = 0
+
 #optional inputs frame
 frame_l = [[sg.Checkbox('Subfolder Size Analysis', default = False, key = '-SUB-')],
     [sg.Checkbox('Storage Use By File Type', default = False, key = '-BRK-')],
@@ -81,7 +84,16 @@ while True:
             print(f'Output folder set as {ofolder}')
         except:
             print('Please Select an Output Folder')
-        
+
+    if event == '-FL-':
+        fl = values['-FL-']
+
+    if event == 'Set Floor':
+        try:
+            floor = fl
+            print(f'Analysis Floor set to {floor} megabytes')
+        except:
+            print('Please specify a floor value')
 
     if event == '-UFOLDER-':
         ufolder = values['-UFOLDER-']
@@ -102,9 +114,6 @@ while True:
             fold.get_sub_paths(fold.dir_path)
 
             fold.investigate_folder(fold.subpaths)
-
-            #hardwire floor for now
-            floor = 0
 
             file_info_df = fold.investigate_data_out(floor)
 
