@@ -42,7 +42,8 @@ unpack_l = [[sg.Text('Copy Files in Analysis Folder To'),
     sg.In(size = (25, 1), enable_events = True, key = '-UFOLDER-'),
     sg.FolderBrowse()], 
     [sg.Button('Set Unpack Folder')],
-    [sg.Checkbox('Enable (copy all files in analysis folder to specified folder)', default=False, key = '-UPK-')]]
+    [sg.Checkbox('Enable (copy all files in analysis folder to specified folder)', default=False, key = '-UPK-')],
+    [sg.Checkbox('Apply Analysis Floor to Unpack Operation', default = False, key = '-UFL-')]]
 
 unpack_frame = [sg.Frame(layout = unpack_l, title = 'Optional Unpack Operation')]
 
@@ -122,6 +123,8 @@ while True:
 
             print(f'folder_contents written to {output_folder}')
 
+            #subfolder size analysis 
+
             if values['-SUB-']== True:
                 fldr = file_info_df[['sub_folder', 'size']].copy()
 
@@ -130,6 +133,8 @@ while True:
                 fldr_sz_info.to_csv(f'{output_folder}/subfolder_size.csv', index = True)
 
                 print(f'subfolder size analysis written to {output_folder}')
+
+            #extension breakdown analysis
 
             if values['-BRK-'] == True:
                 fldr2 = file_info_df[['sub_folder', 'extension', 'size']].copy()
@@ -141,6 +146,8 @@ while True:
                 fldr_info2.to_csv(f'{output_folder}/subfolder_ext.csv', index = True)
 
                 print(f'File Extension Breakdown written to {output_folder}')
+
+            #duplicate analysis
 
             if values['-DUP-'] == True:
                 fldr3 = file_info_df[['file_name', 'size', 'created']].copy()
@@ -168,9 +175,30 @@ while True:
                 else: 
                     print('No suspected duplicates found')
 
+            #unpack operation: SOMETHING WRONG DEBUG
+
             if values['-UPK-'] == True:
+
+                unpack_list = []
+                name_list = []
+
+                #set behavior for floor application
+                if values['-UFL-'] == True:
+
+                    #set up a dataframe and filter it
+                    unpack_f = pd.DataFrame({'name':fold.file_names, 'size':fold.size_list, 'path':fold.file_path_list})
+
+                    unpack_f = unpack_f[unpack_f['size'] >= float(floor)]
+
+                    unpack_list = unpack_f['path'].to_list()
+
+                    name_list = unpack_f['name'].to_list()
                 
-                fold.move_files(fold.file_names, fold.file_path_list, user_dest)
+                else:
+                    unpack_list = fold.file_path_list
+                    name_list = fold.file_names
+                
+                fold.move_files(name_list, unpack_list, user_dest)
         
         except:
             print('Error: make sure all needed inputs are set and try again')
