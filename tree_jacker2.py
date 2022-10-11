@@ -60,22 +60,35 @@ while True:
     
     #set variable folder_path using the appropriate button
     if event == 'Set Target Folder':
-        print(f'Target folder set as {folder}')
-        folder_path = folder
+        try:
+            folder_path = folder
+            print(f'Target folder set as {folder}')
+
+        except:
+            print('Please Select a Target Folder')
+        
 
     if event== '-OFOLDER-':
         ofolder = values['-OFOLDER-']
 
     if event == 'Set Output Folder':
-        print(f'Output folder set as {ofolder}')
-        output_folder = ofolder
+        try:
+            output_folder = ofolder
+            print(f'Output folder set as {ofolder}')
+        except:
+            print('Please Select an Output Folder')
+        
 
     if event == '-UFOLDER-':
         ufolder = values['-UFOLDER-']
 
     if event == 'Set Unpack Folder':
-        print(f'Unpack Folder set as {ufolder}')
-        user_dest = ufolder
+        try:
+            user_dest = ufolder
+            print(f'Unpack Folder set as {ufolder}')
+        except:
+            print('Please Select an Unpack Folder')
+        
 
     if event == 'RUN':
         #run a tree_jack analysis
@@ -150,7 +163,7 @@ while True:
                 fold.move_files(fold.file_names, fold.file_path_list, user_dest)
         
         except:
-            print('Error: make sure inputs are set and try again')
+            print('Error: make sure all needed inputs are set and try again')
 
         
         #kill the program if the user hits the close box or 
