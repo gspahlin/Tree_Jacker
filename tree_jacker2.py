@@ -175,12 +175,9 @@ while True:
                 else: 
                     print('No suspected duplicates found')
 
-            #unpack operation: SOMETHING WRONG DEBUG
+            #unpack operation
 
             if values['-UPK-'] == True:
-
-                unpack_list = []
-                name_list = []
 
                 #set behavior for floor application
                 if values['-UFL-'] == True:
