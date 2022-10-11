@@ -1,11 +1,8 @@
 #this is the graphical interface portion of the Tree_Jacker program
-import os
 import PySimpleGUI as sg
 from tree_folder import Folder as tf
-import time
-import shutil as sht
 import pandas as pd
-import numpy as np
+
 
 #setup the layout of the program
 #input section
