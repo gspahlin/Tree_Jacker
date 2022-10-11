@@ -14,18 +14,22 @@ i_map = [
     sg.In(size = (25, 1), enable_events = True, key='-TFOLDER-'),
     sg.FolderBrowse()],
 
-    [sg.Button('Set Target Folder')]
-
-]
+    [sg.Button('Set Target Folder')]]
 #specify output
 o_map = [
     [sg.Text('Specify Output Folder', justification='r'),
     sg.In(size = (25, 1), enable_events = True, key = '-OFOLDER-'),
     sg.FolderBrowse()], 
 
-    [sg.Button('Set Output Folder')]
-   
-    ]
+    [sg.Button('Set Output Folder')]]
+
+#specify analysis floor
+
+floor_map = [[sg.Text('Ignore Files Smaller Than'), sg.In(size= (5, 1), enable_events = True, key = '-FL-'), 
+    sg.Text('MB')],
+
+    [sg.Button('Set Floor')]]
+
 #optional inputs frame
 frame_l = [[sg.Checkbox('Subfolder Size Analysis', default = False, key = '-SUB-')],
     [sg.Checkbox('Storage Use By File Type', default = False, key = '-BRK-')],
@@ -45,7 +49,7 @@ unpack_frame = [sg.Frame(layout = unpack_l, title = 'Optional Unpack Operation')
 r_map = [[sg.Button('RUN')]]
 
 #full layout
-f_layout = [[i_map, o_map, opt_frame, unpack_frame, r_map]]
+f_layout = [[i_map, o_map, floor_map, opt_frame, unpack_frame, r_map]]
 
 #create window
 window = sg.Window('Tree Jacker', f_layout, resizable=True)
