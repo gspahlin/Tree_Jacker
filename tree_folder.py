@@ -53,9 +53,13 @@ class Folder:
                     print(f'found file {entry.name}')
 
                     try:
+                        #fix slashes in p
+                        pst = p.split('/')
+
+                        p = '\\'.join(pst)
 
                         #get the full file path
-                        fullstring = f'{p}\\{entry.name}'
+                        fullstring = f'{p}\\{entry.name}'                     
 
                         #this function get the size of a file or folder in bytes
                         file_size = os.path.getsize(entry)
