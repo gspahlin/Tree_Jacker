@@ -8,7 +8,7 @@ built using the tkinter version of PySimpleGui. The .exe port was prepared using
 
 <img src="https://github.com/gspahlin/Tree_Jacker/blob/master/readme_pics/ui.png">
 
-#User Interface Explained
+# User Interface Explained
 
 The main function of Tree_Jacker is to analyze the content of a directory tree within your file system. It has the 
 capability to inform you about the content and size of subfolders, what kinds of files are taking up the most space, and 
