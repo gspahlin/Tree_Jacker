@@ -42,3 +42,20 @@ Optional Analyses - These wil be run if they are checked at the time that the 'R
  Floor to  Unpack Operation' option will allow you to move only files at or above your Floor threshold. If it is not enabled, all files will be moved 
  regardless of  your floor value. 
 
+# Setting up an environment to run Tree_Jacker with Anaconda
+
+Tree_Jacker can be run from the .exe provided in this repository, but because of the libraries needed the package is around a 100 MB download. If you have 
+python installed and are comfortable setting up a programming environment, Tree_Jacker can be run from the command line. Here are instructions for setting
+up your environment and running it that way. 
+
+Open Anaconda Prompt, and execute the following commands:
+<br>
+$conda create -n  tjack python==3.8.3<br>
+$conda activate tjack<br>
+$pip install pysimplegui==4.60.3<br>
+$pip install pandas==1.0.5<br>
+<br>
+After this is done the environment is ready. You can run the script from the command line with<br>
+$python tree_jacker_v1.py
+
+When running tree_jacker, make sure that tree_folder.py is present in the folder, as this is a module that is called by the main application. 
