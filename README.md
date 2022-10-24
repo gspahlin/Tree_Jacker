@@ -41,6 +41,9 @@ Optional Analyses - These wil be run if they are checked at the time that the 'R
  folders. Its intended purpose is to aid in the reorganization of folders which have developed compicated internal folder structures. The 'Apply Analysis 
  Floor to  Unpack Operation' option will allow you to move only files at or above your Floor threshold. If it is not enabled, all files will be moved 
  regardless of  your floor value. 
+ 
+ Console window - tree_jacker launches with a console window (seen to the left in the picture above). Look at the console window for information about what 
+ the program is doing, and any errors that may have arisen. 
 
 # Setting up an environment to run Tree_Jacker with Anaconda
 
