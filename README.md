@@ -45,7 +45,7 @@ Optional Analyses - These wil be run if they are checked at the time that the 'R
  Console window - tree_jacker launches with a console window (seen to the left in the picture above). Look at the console window for information about what 
  the program is doing, and any errors that may have arisen. 
 
-# Setting up an environment to run Tree_Jacker with Anaconda
+# Setting up an Environment to Run Tree_Jacker with Anaconda
 
 Tree_Jacker can be run from the .exe provided in this repository, but because of the libraries needed the package is around a 100 MB download. If you have 
 python installed and are comfortable setting up a programming environment, Tree_Jacker can be run from the command line. Here are instructions for setting
